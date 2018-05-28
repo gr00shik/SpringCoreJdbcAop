@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+    <context:component-scan base-package="com.gr00shik"/>
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/springcorejdbc?serverTimezone=UTC"/>
+        <property name="username" value="sergey"/>
+        <property name="password" value="dfvgbh"/>
+    </bean>
+    
+    <bean name="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+<!-- You can use this configuration without class annotation!-->
+<!--    <bean name="logger" class="com.gr00shik.aspect.Logger"/>
+    <aop:config>
+        <aop:aspect id="myAspect" ref="logger">
+            <aop:pointcut id="logging" expression="execution(* com.gr00shik.dao.utils.PurchaseJDBCTemplate.*(..))"/>
+            <aop:before method="log" pointcut-ref="logging"/>
+        </aop:aspect>
+    </aop:config>
+!-->
+</beans>
